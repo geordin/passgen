@@ -1,0 +1,79 @@
+#!/usr/bin/env python
+
+import random, argparse
+
+parser = argparse.ArgumentParser(description="Generate strong password")
+parser.add_argument("-n", action='store_true', help="To include numbers")
+parser.add_argument("-s", action='store_true', help="To include special characters")
+parser.add_argument("length", type=int, help="Password length")
+args = parser.parse_args()
+
+pw_len = args.length
+
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+upperalphabet = alphabet.upper()
+chara = "`~@#$%^&*()_+{}|:;<>,.-?"
+pwlist = []
+
+def alpha():
+	for i in range(pw_len//3):
+		pwlist.append(alphabet[random.randrange(len(alphabet))])
+		pwlist.append(upperalphabet[random.randrange(len(upperalphabet))])
+	for i in range(pw_len-len(pwlist)):
+		pwlist.append(alphabet[random.randrange(len(alphabet))])
+
+	random.shuffle(pwlist)
+	pwstring = "".join(pwlist)
+	print(pwstring)
+
+def alphanum():
+	for i in range(pw_len//3):
+		pwlist.append(alphabet[random.randrange(len(alphabet))])
+		pwlist.append(upperalphabet[random.randrange(len(upperalphabet))])
+		pwlist.append(str(random.randrange(10)))
+	for i in range(pw_len-len(pwlist)):
+		pwlist.append(alphabet[random.randrange(len(alphabet))])
+
+	random.shuffle(pwlist)
+	pwstring = "".join(pwlist)
+	print(pwstring)
+
+def alphachara():
+	for i in range(pw_len//3):
+		pwlist.append(alphabet[random.randrange(len(alphabet))])
+		pwlist.append(upperalphabet[random.randrange(len(upperalphabet))])
+		pwlist.append(chara[random.randrange(len(chara))])
+	for i in range(pw_len-len(pwlist)):
+		pwlist.append(alphabet[random.randrange(len(alphabet))])
+
+	random.shuffle(pwlist)
+	pwstring = "".join(pwlist)
+	print(pwstring)
+
+def alphanumchara():
+	for i in range(pw_len//3):
+		pwlist.append(alphabet[random.randrange(len(alphabet))])
+		pwlist.append(upperalphabet[random.randrange(len(upperalphabet))])
+		pwlist.append(chara[random.randrange(len(chara))])
+		pwlist.append(str(random.randrange(10)))
+	for i in range(pw_len-len(pwlist)):
+		pwlist.append(alphabet[random.randrange(len(alphabet))])
+
+	random.shuffle(pwlist)
+	pwstring = "".join(pwlist)
+	print(pwstring)
+
+
+
+if args.n:
+	if args.s:
+		alphanumchara()
+	else:
+		alphanum()
+elif args.s:
+	if args.n:
+		alphanumchara()
+	else:
+		alphachara()
+else:
+	alpha()
